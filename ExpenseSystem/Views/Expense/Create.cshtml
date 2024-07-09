@@ -1,0 +1,80 @@
+﻿@model ExpenseSystem.Models.Expense
+
+@{
+    ViewData["Title"] = "Create Expense";
+}
+
+<h1>Create Expense</h1>
+
+<h4>Expense</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form id="createExpenseForm">
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <div class="input-group">
+                    <select asp-for="Category" class="form-control custom-select">
+                        <option value="食">食</option>
+                        <option value="衣">衣</option>
+                        <option value="住">住</option>
+                        <option value="行">行</option>
+                    </select>
+                </div>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
+                <button type="button" onclick="createExpense()" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function createExpense() {
+            var form = document.getElementById('createExpenseForm');
+            var formData = new FormData(form);
+            var expense = {};
+            formData.forEach((value, key) => {
+                expense[key] = value;
+            });
+
+            fetch('/api/ExpenseApi/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(expense)
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '/Expense/index';
+                } else {
+                    return response.json().then(data => {
+                        console.error('Error:', data);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+}

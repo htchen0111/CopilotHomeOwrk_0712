@@ -1,0 +1,162 @@
+@{
+    ViewData["Title"] = "Expense List";
+}
+
+<h1>Expense List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Action</th> <!-- 將 Action 列移到最右邊 -->
+        </tr>
+    </thead>
+    <tbody id="expenseTableBody">
+    </tbody>
+</table>
+
+<!-- 更新 Expense 的模態框 -->
+<div class="modal" tabindex="-1" role="dialog" id="updateModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Expense</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeUpdateModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="updateForm">
+                    <input type="hidden" id="updateId">
+                    <div class="form-group">
+                        <label for="updateTitle">Title</label>
+                        <input type="text" class="form-control" id="updateTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateAmount">Amount</label>
+                        <input type="number" class="form-control" id="updateAmount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateDate">Date</label>
+                        <input type="date" class="form-control" id="updateDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateCategory">Category</label>
+                        <div class="input-group">
+                            <select class="form-control custom-select" id="updateCategory" required>
+                                <option value="食">食</option>
+                                <option value="衣">衣</option>
+                                <option value="住">住</option>
+                                <option value="行">行</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeUpdateModal()">Close</button>
+                <button type="button" class="btn btn-primary" onclick="updateExpense()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('/api/ExpenseApi/read')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('expenseTableBody');
+                    data.forEach(expense => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${expense.id}</td>
+                            <td>${expense.title}</td>
+                            <td>${expense.amount}</td>
+                            <td>${new Date(expense.date).toLocaleDateString()}</td>
+                            <td>${expense.category}</td>
+                            <td>
+                                <button class="btn btn-warning mr-2" onclick="showUpdateModal(${expense.id}, '${expense.title}', ${expense.amount}, '${expense.date}', '${expense.category}')">Update</button>
+                                <button class="btn btn-danger" onclick="confirmDelete(${expense.id})">Delete</button>
+                            </td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+        function showUpdateModal(id, title, amount, date, category) {
+            document.getElementById('updateId').value = id;
+            document.getElementById('updateTitle').value = title;
+            document.getElementById('updateAmount').value = amount;
+            document.getElementById('updateDate').value = date.split('T')[0]; // 格式化日期
+            document.getElementById('updateCategory').value = category;
+            $('#updateModal').modal('show');
+        }
+
+        function updateExpense() {
+            const id = document.getElementById('updateId').value;
+            const title = document.getElementById('updateTitle').value;
+            const amount = document.getElementById('updateAmount').value;
+            const date = document.getElementById('updateDate').value;
+            const category = document.getElementById('updateCategory').value;
+
+            const updatedExpense = {
+                id: id,
+                title: title,
+                amount: amount,
+                date: date,
+                category: category
+            };
+
+            fetch(`/api/ExpenseApi/update/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedExpense)
+            })
+            .then(response => {
+                if (response.ok) {
+                    // 更新成功後，重新載入表格資料
+                    location.reload();
+                } else {
+                    console.error('Failed to update expense');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function confirmDelete(id) {
+            if (confirm('Are you sure you want to delete this expense?')) {
+                deleteExpense(id);
+            }
+        }
+
+        function deleteExpense(id) {
+            fetch(`/api/ExpenseApi/delete/${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    // 刪除成功後，從表格中移除該行
+                    const row = document.querySelector(`button[onclick="confirmDelete(${id})"]`).closest('tr');
+                    row.remove();
+                } else {
+                    console.error('Failed to delete expense');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function closeUpdateModal() {
+            $('#updateModal').modal('hide');
+        }
+    </script>
+}

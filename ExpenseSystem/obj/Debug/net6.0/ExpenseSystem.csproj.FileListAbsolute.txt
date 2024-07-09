@@ -29,3 +29,16 @@ C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\obj\Debug\net6.0\
 C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\obj\Debug\net6.0\ExpenseSystem.pdb
 C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\obj\Debug\net6.0\ExpenseSystem.genruntimeconfig.cache
 C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\obj\Debug\net6.0\ref\ExpenseSystem.dll
+C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\obj\Debug\net6.0\ExpenseSystem.csproj.AssemblyReference.cache
+C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\obj\Debug\net6.0\ExpenseS.3C118C72.Up2Date
