@@ -18,12 +18,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Amount" class="control-label"></label>
-                <input asp-for="Amount" class="form-control" />
+                <input asp-for="Amount" class="form-control" min="0" type="number" />
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
+                <input type="date" asp-for="Date" class="form-control" required min="@DateTime.Now.AddYears(-1).ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -67,13 +67,29 @@
                 if (response.ok) {
                     window.location.href = '/Expense/index';
                 } else {
-                    return response.json().then(data => {
-                        console.error('Error:', data);
+                    response.json().then(data => {
+                        if (data && data.errors) {
+                            // 初始化一個空字符串來收集所有錯誤訊息
+                            let errorMessage = "";
+                            // 遍歷 errors 對象中的每個字段
+                            for (const field in data.errors) {
+                                if (data.errors.hasOwnProperty(field)) {
+                                    // 將每個字段的錯誤訊息加到 errorMessage 字符串中
+                                    errorMessage += `${field}: ${data.errors[field].join(", ")}\n`;
+                                }
+                            }
+                            // 顯示錯誤訊息
+                            alert("Validation Error: \n" + errorMessage);
+                        } else {
+                            // 如果不是預期的格式，則直接顯示整個返回的對象
+                            alert("Error: \n" + JSON.stringify(data));
+                        }
                     });
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
+                alert("An unexpected error occurred");
             });
         }
     </script>

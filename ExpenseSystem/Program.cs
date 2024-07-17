@@ -1,5 +1,7 @@
+using ExpenseSystem.Common.Validator;
 using ExpenseSystem.Data;
 using ExpenseSystem.Models;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,8 @@ builder.Services.AddDbContext<ExpenseDbContext>(options =>
     options.UseInMemoryDatabase("ExpenseSystem"));
 
 builder.Services.AddTransient<IDatabaseInitializer, DatabaseInitializer>();
+
+builder.Services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ExpenseValidator>());
 
 var app = builder.Build();
 

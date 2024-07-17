@@ -38,11 +38,11 @@
                     </div>
                     <div class="form-group">
                         <label for="updateAmount">Amount</label>
-                        <input type="number" class="form-control" id="updateAmount" required>
+                        <input type="number" class="form-control" id="updateAmount" min="0" required>
                     </div>
                     <div class="form-group">
                         <label for="updateDate">Date</label>
-                        <input type="date" class="form-control" id="updateDate" required>
+                        <input type="date" class="form-control" id="updateDate" required min="@DateTime.Now.AddYears(-1).ToString("yyyy-MM-dd")">
                     </div>
                     <div class="form-group">
                         <label for="updateCategory">Category</label>
@@ -127,10 +127,31 @@
                     // 更新成功後，重新載入表格資料
                     location.reload();
                 } else {
-                    console.error('Failed to update expense');
+                    // 處理非 200 OK 響應
+                    response.json().then(data => {
+                        if (data && data.errors) {
+                            // 初始化一個空字符串來收集所有錯誤訊息
+                            let errorMessage = "";
+                            // 遍歷 errors 對象中的每個字段
+                            for (const field in data.errors) {
+                                if (data.errors.hasOwnProperty(field)) {
+                                    // 將每個字段的錯誤訊息加到 errorMessage 字符串中
+                                    errorMessage += `${field}: ${data.errors[field].join(", ")}\n`;
+                                }
+                            }
+                            // 顯示錯誤訊息
+                            alert("Validation Error: \n" + errorMessage);
+                        } else {
+                            // 如果不是預期的格式，則直接顯示整個返回的對象
+                            alert("Error: \n" + JSON.stringify(data));
+                        }
+                    });
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error:', error);
+                alert("An unexpected error occurred");
+            });
         }
 
         function confirmDelete(id) {

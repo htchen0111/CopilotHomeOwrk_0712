@@ -42,3 +42,7 @@ C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\bin\Debug\net6.0\
 C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
 C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\obj\Debug\net6.0\ExpenseSystem.csproj.AssemblyReference.cache
 C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\obj\Debug\net6.0\ExpenseS.3C118C72.Up2Date
+C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\bin\Debug\net6.0\FluentValidation.dll
+C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
+C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\91APP\CopilotCourse\0712\CopilotHomework_0712\ExpenseSystem\obj\Debug\net6.0\ExpenseSystem.MvcApplicationPartsAssemblyInfo.cs
